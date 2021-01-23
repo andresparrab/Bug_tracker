@@ -61,8 +61,24 @@ const updateUser = async (req: express.Request, res: express.Response): Promise<
   }
 };
 
+const deleteUserById = async (req: express.Request, res: express.Response): Promise<any> => {
+  try {
+    if (!req.body) {
+      return res.status(statusCode.BAD_REQUEST).send({ message: "Cannot delete empty user" });
+    }
+    const response = await userModel.findByIdAndDelete(req.params.id);
+    console.log("Exercise deleted :  ", response);
+  } catch (error) {
+    res.status(statusCode.INTERNAL_SERVER_ERROR).send({
+      message: "Error accured while trying to updade he values of the user id " + req.params.id,
+      error: error.message,
+    });
+  }
+};
+
 export default {
   createUser,
   getUsers,
   updateUser,
+  deleteUserById,
 };

@@ -3,9 +3,9 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const connectToDatabase = async (): Promise<any> => {
+const connectToDatabase = async (): Promise<void> => {
   try {
-    const DB_URL: any = process.env.DATABASE_URL;
+    const DB_URL = process.env.DATABASE_URL as string;
     await moongose.connect(DB_URL, {
       useFindAndModify: false,
       useNewUrlParser: true,
